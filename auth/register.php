@@ -81,6 +81,7 @@
     </div>
 
     <?php
+    ob_start();
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Kiểm tra nếu nút gửi được nhấn
         if (isset($_POST['submit'])) {
@@ -144,16 +145,28 @@
 
                 // Gọi hàm insert
                 $res = insert($q, $values, 'ssssssss');
+                // if ($res == 1) {
+                //     // alert('success', 'Đăng ký thành công!');
+                //     header("location: login.php");
+                //     exit();
+                // } else {
+                //     alert('error', 'Lỗi máy chủ, vui lòng thử lại!');
+                // }
+
                 if ($res == 1) {
-                    alert('success', 'Đăng ký thành công!');
-                    header('Location: login.php');
+                    // Nếu đăng ký thành công, chuyển hướng đến trang đăng nhập
+                    // header("Location: login.php");
+                    // exit();
+                    echo "<script>window.location.href = 'login.php';</script>";
                     exit();
                 } else {
+                    // Nếu có lỗi, hiển thị thông báo lỗi
                     alert('error', 'Lỗi máy chủ, vui lòng thử lại!');
                 }
             }
         }
     }
+    ob_end_flush();
     ?>
 
 
